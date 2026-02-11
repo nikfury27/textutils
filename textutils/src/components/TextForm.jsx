@@ -3,16 +3,21 @@ import React, {useState} from 'react'
 export default function TextForm(props) {
 
     const handleUpClick = () => {
-        let newText = text.toUpperCase();
+        let newText = ""
+        newText = text.toUpperCase();
         setText(newText);
+        props.showAlert("Coverted to uppercase!","success")
     }
     const handleLowClick = () => {
-        let newText = text.toLowerCase();
+        let newText = ''
+        newText = text.toLowerCase();
         setText(newText);
+        props.showAlert("Coverted to lowercase!","success")
     }
     const handleClearClick = () => {
         let newText = "";
         setText(newText);
+        props.showAlert("Texts cleared","danger")
     }
     const handleOnChange = (event) => {
         setText(event.target.value)
@@ -21,6 +26,7 @@ export default function TextForm(props) {
     let newtext = "";
     for (let i = text.length - 1; i >= 0; i--) {
       newtext += text[i];
+      props.showAlert("Inverted!","success")
     }
     setText(newtext);
   }; 
@@ -39,11 +45,11 @@ export default function TextForm(props) {
     </div>
     <div className="container my-3">
         <h1>Your text summary: </h1>
-        <p>{text.split(" ").length} words and {text.length} characters</p>
+        <p>{text.match(/\S+/g)?.length || 0} words and {text.length} characters</p>
         <p>Funfact: Humans take 0.48s to read a word on average.</p>
         <p>{0.008 * text.split(" ").length} minutes to read.</p>
         <h2>Preview:</h2>
-        <p>{text.length == 0 ? "Enter your text" : text}</p>
+        <p>{text.length === 0 ? "Enter your text" : text}</p>
     </div>
     </>
   )
